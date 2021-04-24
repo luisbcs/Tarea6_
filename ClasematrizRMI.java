@@ -1,0 +1,29 @@
+import java.rmi.server.UnicastRemoteObject;
+import java.rmi.RemoteException;
+
+/*
+ * Tarea 6. Multiplicación de matrices utilizando objetos distribuidos
+ * Becerril Saldivar Luis Alejandro
+*/
+
+
+public class ClasematrizRMI extends UnicastRemoteObject implements InterfacematrizRMI {
+    static final int N = 8;
+    
+    // es necesario que el contructor default de la clase ClaseRMI invoque el
+    // constructor de la super-clase
+    public ClasematrizRMI() throws RemoteException{
+        super( );
+    }
+   
+    public float[][] multiplica_matrices(float[][] A, float[][] B) throws RemoteException {
+
+        float[][] C = new float[N/2][N/2];
+        for (int i = 0; i < N/2; i++)
+            for (int j = 0; j < N/2; j++)
+                for (int k = 0; k < N; k++)
+                    C[i][j] += A[i][k] * B[j][k];
+        return C;     
+    }
+
+}
